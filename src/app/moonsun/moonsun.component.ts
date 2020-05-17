@@ -46,7 +46,14 @@ export class MoonsunComponent implements OnInit {
 
   error: string | undefined;
 
-  columnsToDisplay = ['date', 'phase'];
+  columnsToDisplay = [
+    'date',
+    'phase',
+    'moonrise',
+    'moonset',
+    'sunrise',
+    'sunset'
+  ];
 
   constructor(private geolocationService: GeolocationService) {}
 
@@ -83,5 +90,9 @@ export class MoonsunComponent implements OnInit {
 
   onError(error: Error) {
     this.error = error.message;
+  }
+
+  formatTime(date: Date) {
+    return date && date.toLocaleTimeString();
   }
 }
