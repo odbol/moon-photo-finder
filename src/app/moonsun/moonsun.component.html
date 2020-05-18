@@ -2,6 +2,8 @@
 
 <p class="error" *ngIf="error">{{error}}</p>
 
+<app-graph [dataSource]="times"></app-graph>
+
 <table mat-table [dataSource]="times" class="mat-elevation-z8">
 
   <!--- Note that these columns can be defined in any order.

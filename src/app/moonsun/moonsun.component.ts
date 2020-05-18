@@ -3,36 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import SunCalc from 'suncalc';
 import { GeolocationService } from '../geolocation.service';
 
-const MS_PER_DAY = 1000 * 60 * 60 * 24;
+import { SunMoonDay } from '../models/SunMoonDay';
 
-interface SunMoonDay {
-  date: Date;
-  moontimes: {
-    rise: Date;
-    set: Date;
-  };
-  moonPhase: {
-    fraction: number;
-    phase: number;
-    angle: number;
-  };
-  suntimes: {
-    solarNoon: Date;
-    nadir: Date;
-    sunrise: Date;
-    sunset: Date;
-    sunriseEnd: Date;
-    sunsetStart: Date;
-    dawn: Date;
-    dusk: Date;
-    nauticalDawn: Date;
-    nauticalDusk: Date;
-    nightEnd: Date;
-    night: Date;
-    goldenHourEnd: Date;
-    goldenHour: Date;
-  };
-}
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
 @Component({
   selector: 'app-moonsun',
