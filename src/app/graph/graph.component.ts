@@ -11,7 +11,18 @@ import { SunMoonDay } from '../models/SunMoonDay';
 })
 export class GraphComponent implements OnInit {
 
-  @Input() dataSource : SunMoonDay[] | undefined;
+  private _dataSource : SunMoonDay[] | undefined;
+
+  // use getter setter to define the property
+  get dataSource(): SunMoonDay[] | undefined {
+    return this._dataSource;
+  }
+
+  @Input()
+  set dataSource(val: SunMoonDay[] | undefined) {
+    this._dataSource = val;
+    this._dataSource && this.parseData(this._dataSource);
+  }
 
   data: any[] | undefined;
 
@@ -36,7 +47,7 @@ export class GraphComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.dataSource && this.parseData(this.dataSource);
+
   }
 
   parseData(dataSource: SunMoonDay[]) {
@@ -61,6 +72,7 @@ export class GraphComponent implements OnInit {
         series: moon
       }
     ];
+    console.log('parsedata', this.data);
   }
 
   onSelect(event) {
