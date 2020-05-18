@@ -4,6 +4,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { SunMoonDay } from '../models/SunMoonDay';
 
+function parseTime(date: Date?) {
+  return date ? date.getHours() : 0;
+}
+
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
@@ -55,11 +59,11 @@ export class GraphComponent implements OnInit {
     for (let day of this.dataSource) {
       moon.push({
         name: day.date,
-        value: day.moontimes.rise ? day.moontimes.rise.getTime() / 1000 : 0
+        value: parseTime(day.moontimes.rise ? day.moontimes.rise : null)
       });
       sun.push({
         name: day.date,
-        value: day.suntimes.sunrise.getTime() / 1000
+        value: parseTime(day.suntimes.sunset)
       });
     }
     this.data = [
