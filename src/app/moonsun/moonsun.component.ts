@@ -68,4 +68,13 @@ export class MoonsunComponent implements OnInit {
   formatTime(date: Date) {
     return date && date.toLocaleTimeString();
   }
+
+  getMoonShadowStyle(moonPhase: any) {
+    const f = moonPhase.fraction;
+    let offset = Math.sin((moonPhase.phase - 0.5) * Math.PI); // 0.5: full mooon. 0: new (waxing), 1: new (waning)
+
+console.log('getMoonShadowStyle : ' + offset, moonPhase);
+
+    return `left: ${offset * 100}%`;
+  }
 }
