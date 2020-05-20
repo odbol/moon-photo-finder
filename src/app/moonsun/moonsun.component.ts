@@ -25,7 +25,8 @@ export class MoonsunComponent implements OnInit {
     'moonrise',
     'moonset',
     'sunrise',
-    'sunset'
+    'sunset',
+    'proximity'
   ];
 
   constructor(private geolocationService: GeolocationService) {}
@@ -45,15 +46,20 @@ export class MoonsunComponent implements OnInit {
     const result = [];
     for (let i = 0; i < this.numDays; i++) {
       const date = new Date(curTimeMs + i * MS_PER_DAY);
+      const suntimes = SunCalc.getTimes(date, coords.latitude, coords.longitude);
+      const moontimes = SunCalc.getMoonTimes(
+        date,
+        coords.latitude,
+        coords.longitude
+      );
+      const proximity = moontimes.rise ? (suntimes.sunset.getTime() - moontimes.rise.getTime()) : undefined;
+
       result.push({
         date,
-        moontimes: SunCalc.getMoonTimes(
-          date,
-          coords.latitude,
-          coords.longitude
-        ),
+        moontimes,
         moonPhase: SunCalc.getMoonIllumination(date),
-        suntimes: SunCalc.getTimes(date, coords.latitude, coords.longitude),
+        suntimes,
+        proximity
       });
     }
 
@@ -69,11 +75,24 @@ export class MoonsunComponent implements OnInit {
     return date && date.toLocaleTimeString();
   }
 
+  formatMs(ms: number | undefined) {
+    if (ms === undefined) {
+      return '';
+    } else {
+      const minutes = ms / 1000 / 60;
+      if (minutes > 60) {
+        return `${(minutes / 60).toFixed(1)} hours`
+      } else {
+        return `${Math.round(minutes)} mins`
+      }
+    }
+  }
+
   getMoonShadowStyle(moonPhase: any) {
     const f = moonPhase.fraction;
     let offset = Math.sin((moonPhase.phase - 0.5) * Math.PI); // 0.5: full mooon. 0: new (waxing), 1: new (waning)
 
-console.log('getMoonShadowStyle : ' + offset, moonPhase);
+// console.log('getMoonShadowStyle : ' + offset, moonPhase);
 
     return `left: ${offset * 100}%`;
   }
