@@ -90,10 +90,18 @@ export class MoonsunComponent implements OnInit {
 
   getMoonShadowStyle(moonPhase: any) {
     const f = moonPhase.fraction;
-    let offset = Math.sin((moonPhase.phase - 0.5) * Math.PI); // 0.5: full mooon. 0: new (waxing), 1: new (waning)
+    let offset = ((moonPhase.phase - 0.5) * 2); // 0.5: full mooon. 0: new (waxing), 1: new (waning)
 
 // console.log('getMoonShadowStyle : ' + offset, moonPhase);
 
     return `left: ${offset * 100}%`;
+  }
+
+  getProximityGraphStyle(proximityMs: number | undefined) {
+    if (proximityMs === undefined) {
+      return 'visibility: invisible';
+    } else {
+      return `width: ${Math.abs(proximityMs / MS_PER_DAY) * 100}%`;
+    }
   }
 }

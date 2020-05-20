@@ -47,7 +47,12 @@
 
   <ng-container matColumnDef="proximity">
     <th mat-header-cell *matHeaderCellDef> Proximity </th>
-    <td mat-cell *matCellDef="let element"> {{formatMs(element.proximity)}} </td>
+    <td mat-cell *matCellDef="let element">
+      <div class='proximity'>
+        <div class='graph' [style]="getProximityGraphStyle(element.proximity)"></div>
+        <div class='text'>{{formatMs(element.proximity)}}</div>
+      </div>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>

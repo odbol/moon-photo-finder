@@ -25,3 +25,27 @@ table {
 }
 
 
+.proximity {
+  position: relative;
+  width: 80px;
+  height: 40px;
+
+  .graph, .text {
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    color: black;
+    font-weight: bold;
+  }
+
+  .text {
+    padding: 4px;
+  }
+
+  .graph {
+    background-color:#b4b3ff;
+    border-radius: 5px;
+  }
+}
+
+
