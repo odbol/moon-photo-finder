@@ -4,7 +4,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { SunMoonDay } from '../models/SunMoonDay';
 
-function parseTime(date: Date?) {
+function parseTime(date?: Date) {
   return date ? date.getHours() : 0;
 }
 
