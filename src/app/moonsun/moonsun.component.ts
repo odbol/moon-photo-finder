@@ -7,6 +7,10 @@ import { SunMoonDay } from '../models/SunMoonDay';
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
+function calculateProximity(moon: any, sun: any) {
+  return moon ? (sun.getTime() - moon.getTime()) : undefined;
+}
+
 @Component({
   selector: 'app-moonsun',
   templateUrl: './moonsun.component.html',
@@ -26,7 +30,8 @@ export class MoonsunComponent implements OnInit {
     'moonset',
     'sunrise',
     'sunset',
-    'proximity'
+    'proximity',
+    'setRiseProximity'
   ];
 
   constructor(private geolocationService: GeolocationService) {}
@@ -52,14 +57,16 @@ export class MoonsunComponent implements OnInit {
         coords.latitude,
         coords.longitude
       );
-      const proximity = moontimes.rise ? (suntimes.sunset.getTime() - moontimes.rise.getTime()) : undefined;
+      const proximity = calculateProximity(moontimes.rise, suntimes.sunset),
+        setRiseProximity = calculateProximity(moontimes.set, suntimes.sunrise);
 
       result.push({
         date,
         moontimes,
         moonPhase: SunCalc.getMoonIllumination(date),
         suntimes,
-        proximity
+        proximity,
+        setRiseProximity,
       });
     }
 
@@ -105,3 +112,4 @@ export class MoonsunComponent implements OnInit {
     }
   }
 }
+

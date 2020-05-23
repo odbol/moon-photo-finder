@@ -46,7 +46,7 @@
   </ng-container>
 
   <ng-container matColumnDef="proximity">
-    <th mat-header-cell *matHeaderCellDef> Proximity </th>
+    <th mat-header-cell *matHeaderCellDef> Moonrise / Sunset Proximity </th>
     <td mat-cell *matCellDef="let element">
       <div class='proximity'>
         <div class='graph' [style]="getProximityGraphStyle(element.proximity)"></div>
@@ -54,6 +54,18 @@
       </div>
     </td>
   </ng-container>
+
+
+  <ng-container matColumnDef="setRiseProximity">
+    <th mat-header-cell *matHeaderCellDef> MoonSet / Sunrise Proximity </th>
+    <td mat-cell *matCellDef="let element">
+      <div class='proximity'>
+        <div class='graph' [style]="getProximityGraphStyle(element.setRiseProximity)"></div>
+        <div class='text'>{{formatMs(element.setRiseProximity)}}</div>
+      </div>
+    </td>
+  </ng-container>
+
 
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
   <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
